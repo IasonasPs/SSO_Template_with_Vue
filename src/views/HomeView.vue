@@ -1,42 +1,27 @@
 <template>
-  Welcome to {{ 'yourSiteName' }}
-  <div @click="signInWithGoogle">
-    Continue with google
+  <div>
+    <h2>Test</h2>
+    <GoogleLogin :callback="callback" propmt />
   </div>
+
+  <div>
+    <h4>{{ result }}</h4>
+  </div>
+
 </template>
 
 
 <script setup lang="ts">
-import { useUserStore } from '@/stores/useUserStore'
-import { googleSdkLoaded } from 'vue3-google-login'
+import { ref } from 'vue'
+import { decodeCredential } from 'vue3-google-login'
 
 
-// Composables
-const userStore = useUserStore()
-
-// const { clientId } = storeToRefs(userStore)
-
-const { fetchUserDataFrom } = userStore
-
-// Methods
-const signInWithGoogle = () => {
-  googleSdkLoaded(google => {
-    google.accounts.oauth2
-      .initCodeClient({
-        client_id: userStore.clientId, ////clientId.value,
-        scope: 'email profile openid',
-        redirect_uri: import.meta.env.VITE_APP_REDIRECT_URL,
-        callback: response => {
-          if (response.code)
-            fetchUserDataFrom(response.code)
-        },
-      })
-      .requestCode()
-  })
+const result = ref<object>({})
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const callback = (response: any) => {
+  // This callback will be triggered when the user selects or login to
+  // his Google account from the popup
+  const userData = decodeCredential(response.credential)
+  result.value = userData
 }
-
-
-
-
-
 </script>

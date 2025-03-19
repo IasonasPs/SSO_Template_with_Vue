@@ -1,14 +1,14 @@
 import { defineStore } from 'pinia'
-import { useRouter } from 'vue-router'
+// import { useRouter } from 'vue-router'
 import axios from 'axios'
 import { ref } from 'vue'
 
 export const useUserStore = defineStore('user', () => {
-  const router = useRouter()
+  // const router = useRouter()
 
   // Data
-  const clientId = ref<string>('YOUR_CLIENT_ID')
-  const clientSecret = ref<string>('YOUR_CLIENT_SECRET')
+  const clientId = ref<string>('')
+  const clientSecret = ref<string>('')
   const userData = ref<object>({})
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
