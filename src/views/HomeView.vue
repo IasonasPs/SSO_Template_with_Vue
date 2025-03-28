@@ -29,7 +29,6 @@
   </div>
 </template>
 
-
 <script setup lang="ts">
 import { useSsoStore } from '@/stores/ssoStore';
 import { computed, onMounted } from 'vue';
